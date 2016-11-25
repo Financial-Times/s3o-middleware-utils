@@ -18,7 +18,7 @@ pollerStub.returns({ start: startStub });
 pollerStub.yieldsTo('parseData', 'test-key');
 startStub.returns(Promise.resolve());
 
-const publicKeyFactory = proxyquire('../lib/publickey', {
+const publicKeyFactory = proxyquire('../publickey', {
   'ft-poller': pollerStub,
 });
 

@@ -25,7 +25,7 @@ const updateSpy = sinon.spy();
 createVerifyStub.returns({ update: updateSpy, verify: verifyStub });
 verifyStub.returns(true);
 
-const validatorFactory = proxyquire('../lib/validate', {
+const validatorFactory = proxyquire('../validate', {
   'node-rsa': rsaStub,
   'crypto': {
     createVerify: createVerifyStub,
