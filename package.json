@@ -1,0 +1,42 @@
+{
+  "name": "s3o-middleware-utils",
+  "version": "1.0.0",
+  "description": "Shared NodeJS utility library for authenticating s3o middlewares",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha test/**/*.spec.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Financial-Times/S3O-middleware.git"
+  },
+  "keywords": [
+    "express",
+    "s3o",
+    "middleware",
+    "ft"
+  ],
+  "contributors": [
+		"Jake Champion",
+		"Ændrew Rininsland"
+	],
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Financial-Times/s3o-middleware-utils/issues"
+  },
+  "homepage": "https://github.com/Financial-Times/s3o-middleware-utils#readme",
+  "dependencies": {
+    "cookie": "^0.2.2",
+    "debug": "^2.2.0",
+    "ft-poller": "^2.1.0",
+    "node-rsa": "^0.2.25"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "eslint": "^3.10.2",
+    "mocha": "^3.1.2",
+    "proxyquire": "^1.7.10",
+    "sinon": "^1.17.6",
+    "sinon-chai": "^2.8.0"
+  }
+}
