@@ -1,12 +1,20 @@
-'use strict';
+/**
+ * Module to request public key from S3O service
+ */
 
-let Poller = require('ft-poller');
-let S3O_PUBLIC_KEY_URL = 'https://s3o.ft.com/publickey';
+const Poller = require('ft-poller');
+const S3O_PUBLIC_KEY_URL = 'https://s3o.ft.com/publickey';
 
+/**
+ * Begins polling the S3O public key service every 300000 ms
+ * @param  {function} debug Debug logger
+ * @return {function}       Returns a function that in turn returns either the public key as
+ *                          as a string or a promise that resolves to the public key string.
+ */
 module.exports = function (debug) {
 	let publicKey;
 
-	let flagsPoller = new Poller({
+	const flagsPoller = new Poller({
 		url: S3O_PUBLIC_KEY_URL,
 		retry: 3,
 		refreshInterval: 1000 * 60 * 5,
@@ -16,7 +24,7 @@ module.exports = function (debug) {
 		}
 	});
 
-	let promise = flagsPoller.start({ initialRequest: true });
+	const promise = flagsPoller.start({ initialRequest: true });
 
 	return function (opts) {
 		if (opts && opts.promise) {
