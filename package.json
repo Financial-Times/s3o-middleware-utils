@@ -1,6 +1,6 @@
 {
   "name": "@financial-times/s3o-middleware-utils",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Shared NodeJS utility library for authenticating s3o middlewares",
   "main": "index.js",
   "scripts": {
