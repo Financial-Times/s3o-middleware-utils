@@ -1,17 +1,17 @@
-version: 2
+version: 2.1
+
+executors:
+  node:
+    docker:
+      - image: circleci/node:8
 
 references:
-
-  default_container_config: &default_container_config
-    docker:
-      - image: circleci/node:6.10
-
   attach_workspace: &attach_workspace
     attach_workspace:
       at: ~/project
 
   npm_cache_key: &npm_cache_key
-    v1-dependency-npm-{{ checksum "package.json" }}
+    v1-dependency-npm-{{ checksum "package-lock.json" }}
 
   restore_node_modules: &restore_node_modules
     restore_cache:
@@ -31,7 +31,7 @@ references:
 
 jobs:
   install:
-    <<: *default_container_config
+    executor: node
     steps:
       - checkout
 
@@ -48,7 +48,7 @@ jobs:
             - .
 
   test:
-    <<: *default_container_config
+    executor: node
     steps:
       - *attach_workspace
 
@@ -57,7 +57,7 @@ jobs:
           command: npm test
 
   release_npm:
-    <<: *default_container_config
+    executor: node
     steps:
       - *attach_workspace
 
@@ -72,7 +72,7 @@ jobs:
             npm publish --access public
 
 workflows:
-  version: 2
+  version: 2.1
   build-and-release:
     jobs:
       - install:
