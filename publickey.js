@@ -25,6 +25,7 @@ module.exports = function (debug) {
 	});
 
 	const promise = flagsPoller.start({ initialRequest: true });
+	flagsPoller.poller.unref();
 
 	return function (opts) {
 		if (opts && opts.promise) {
