@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Financial-Times/S3O-middleware.git"
+    "url": "git+https://github.com/Financial-Times/s3o-middleware-utils"
   },
   "keywords": [
     "express",

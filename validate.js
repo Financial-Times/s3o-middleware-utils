@@ -11,7 +11,7 @@ const NodeRSA = require('node-rsa');
  * @return {function}            Returns validator function
  */
 module.exports = function (s3oPublicKey) {
-	return function (key, token) {
+	return function (key, signedToken) {
 		const publicKey = s3oPublicKey();
 		if (!publicKey) {
 			return false;
@@ -27,6 +27,6 @@ module.exports = function (s3oPublicKey) {
 		const verifier = crypto.createVerify('sha1');
 		verifier.update(key);
 
-		return verifier.verify(publicPem, token, 'base64');
+		return verifier.verify(publicPem, signedToken, 'base64');
 	};
 };
