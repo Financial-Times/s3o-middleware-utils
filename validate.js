@@ -1,18 +1,19 @@
 /**
  * Module for verifying public keys
  */
+
 const crypto = require('crypto');
 const NodeRSA = require('node-rsa');
 
 /**
  * Factory function for creating cryptographic signature validators
  *
- * @param  {string} s3oPublicKey S3O public key from public key service
+ * @param  {string} getS3oPublicKey function which retrieves S3O public key from public key service
  * @return {function}            Returns validator function
  */
-module.exports = function (s3oPublicKey) {
+module.exports = function (getS3oPublicKey) {
 	return function (object, signature) {
-		const publicKey = s3oPublicKey();
+		const publicKey = getS3oPublicKey();
 		if (!publicKey) {
 			return false;
 		}

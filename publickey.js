@@ -2,7 +2,9 @@
  * Module to request public key from S3O service
  */
 
+const got = require('got');
 const Poller = require('ft-poller');
+
 const S3O_PUBLIC_KEY_URL = 'https://s3o.ft.com/publickey';
 
 /**
@@ -11,7 +13,7 @@ const S3O_PUBLIC_KEY_URL = 'https://s3o.ft.com/publickey';
  * @return {function}       Returns a function that in turn returns either the public key as
  *                          as a string or a promise that resolves to the public key string.
  */
-module.exports = function (debug) {
+const poller = (debug) => {
 	let publicKey;
 
 	const flagsPoller = new Poller({
@@ -36,3 +38,30 @@ module.exports = function (debug) {
 		return publicKey;
 	};
 };
+
+
+/**
+ * Fetches the S3O public key
+ * @async
+ * @param {Object} [options] Options object
+ * @param {string} [options.debug] Debug logger
+ * @param {string} [options.cache] A Map to use as a cache, or any cache compatible with got (https://github.com/sindresorhus/got#cache-1)
+ * @param {integer} [options.retry] The number of retries to attempt in the event of a failure
+ * @return {Promise<String} The public key
+ */
+const get = ({debug = () => {}, cache, retry = 3} = {}) => got(S3O_PUBLIC_KEY_URL, {
+	retry,
+		// obey cache-control headers on the public key endpoint
+	cache: cache,
+}).then((response) => {
+	debug('event=S3O_PUBLIC_KEY_LOADED source=' + S3O_PUBLIC_KEY_URL);
+	return response.body;
+}).catch(error => {
+	debug('event=S3O_PUBLIC_KEY_FAILED_TO_LOAD source=' + S3O_PUBLIC_KEY_URL + ' error=' + error);
+	throw error;
+})
+
+module.exports = {
+	poller,
+	get,
+}

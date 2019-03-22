@@ -1,43 +1,46 @@
 {
-  "name": "@financial-times/s3o-middleware-utils",
-  "version": "1.1.1",
-  "description": "Shared NodeJS utility library for authenticating s3o middlewares",
-  "main": "index.js",
-  "scripts": {
-    "test": "mocha test/**/*.spec.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Financial-Times/s3o-middleware-utils"
-  },
-  "keywords": [
-    "express",
-    "s3o",
-    "middleware",
-    "ft"
-  ],
-  "contributors": [
-    "Jake Champion",
-    "Ændrew Rininsland"
-  ],
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Financial-Times/s3o-middleware-utils/issues"
-  },
-  "homepage": "https://github.com/Financial-Times/s3o-middleware-utils#readme",
-  "dependencies": {
-    "cookie": "^0.3.1",
-    "debug": "^4.1.1",
-    "ft-poller": "^3.0.1",
-    "node-rsa": "^1.0.2"
-  },
-  "devDependencies": {
-    "chai": "^4.2.0",
-    "eslint": "^5.12.0",
-    "mocha": "^6.0.2",
-    "npm-prepublish": "^1.2.2",
-    "proxyquire": "^2.1.0",
-    "sinon": "^7.2.2",
-    "sinon-chai": "^3.3.0"
-  }
+	"name": "@financial-times/s3o-middleware-utils",
+	"version": "1.1.1",
+	"description": "Shared NodeJS utility library for authenticating s3o middlewares",
+	"main": "index.js",
+	"scripts": {
+		"test": "mocha test/**/*.spec.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/Financial-Times/s3o-middleware-utils"
+	},
+	"keywords": [
+		"express",
+		"s3o",
+		"middleware",
+		"ft"
+	],
+	"contributors": [
+		"Jake Champion",
+		"Ændrew Rininsland"
+	],
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/Financial-Times/s3o-middleware-utils/issues"
+	},
+	"homepage": "https://github.com/Financial-Times/s3o-middleware-utils#readme",
+	"dependencies": {
+		"cookie": "^0.3.1",
+		"debug": "^4.1.1",
+		"ft-poller": "^3.0.1",
+		"got": "^9.6.0",
+		"node-rsa": "^1.0.2"
+	},
+	"devDependencies": {
+		"chai": "^4.2.0",
+		"eslint": "^5.12.0",
+		"lolex": "^3.1.0",
+		"mocha": "^6.0.2",
+		"nock": "^10.0.6",
+		"npm-prepublish": "^1.2.2",
+		"proxyquire": "^2.1.0",
+		"sinon": "^7.2.2",
+		"sinon-chai": "^3.3.0"
+	}
 }

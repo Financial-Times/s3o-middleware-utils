@@ -3,9 +3,17 @@
  */
 
 const debug = require('debug')('middleware:auth:s3o');
-const s3oPublicKey = require('./publickey')(debug);
-const validate = require('./validate')(s3oPublicKey);
+const validateFactory = require('./validate');
 
+/**
+ * Returns a token authenticator
+ *
+ * @param  {function} getPublicKey an s3o public key getter
+ * @param  {function} validate an s3o signature validator
+ *
+ * @returns {function(string, string, string): boolean} A token authenticator
+ */
+const authenticateToken = (getPublicKey, validate) =>
 /**
  * Authenticate token and save/delete cookies as appropriate.
  *
@@ -14,8 +22,8 @@ const validate = require('./validate')(s3oPublicKey);
  * @param  {string} token    S3O token
  * @return {boolean}         Boolean indicating whether the request authenticates or not
  */
-const authenticateToken = function (username, hostname, token) {
-	const publicKey = s3oPublicKey();
+function (username, hostname, token) {
+	const publicKey = getPublicKey();
 
 	if (!publicKey) {
 		throw new Error('Has not yet downloaded public key from S3O');
@@ -33,6 +41,10 @@ const authenticateToken = function (username, hostname, token) {
 	}
 };
 
-module.exports.authenticateToken = authenticateToken;
-module.exports.validate = validate;
-module.exports.s3oPublicKeyPromise = s3oPublicKey({ promise: true });
+module.exports = (getPublicKey) => {
+	const validate = validateFactory(getPublicKey);
+	return {
+		authenticateToken: authenticateToken(getPublicKey, validate),
+		validate,
+	};
+}
