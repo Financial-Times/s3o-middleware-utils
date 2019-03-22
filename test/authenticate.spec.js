@@ -19,7 +19,8 @@ describe('authenticateToken', () => {
 	}).authenticateToken;
 
 	beforeEach(() => {
-		publickeyStub.reset().returns(() => true);
+		publickeyStub.reset()
+		publickeyStub.returns(() => true);
 		validateStub.reset();
 	});
 

@@ -19,7 +19,7 @@ module.exports = function (s3oPublicKey) {
 
 		// Convert the publicKey from DER format to PEM format
 		// See: https://www.npmjs.com/package/node-rsa
-		const buffer = new Buffer(publicKey, 'base64');
+		const buffer = Buffer.from(publicKey, 'base64');
 		const publicDer = new NodeRSA(buffer, 'pkcs8-public-der');
 		const publicPem = publicDer.exportKey('pkcs8-public-pem');
 
