@@ -12,8 +12,8 @@ const NodeRSA = require('node-rsa');
  * @return {function}            Returns validator function
  */
 module.exports = function (getS3oPublicKey) {
-	return async function (object, signature) {
-		const publicKey = await getS3oPublicKey();
+	return function (object, signature) {
+		const publicKey = getS3oPublicKey();
 		if (!publicKey) {
 			return false;
 		}
