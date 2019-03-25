@@ -14,7 +14,7 @@ const S3O_PUBLIC_KEY_URL = 'https://s3o.ft.com/publickey';
  *                          as a string or a promise that resolves to the public key string.
  */
 const poller = (debug) => {
-	let publicKey;
+	let publickey;
 
 	const flagsPoller = new Poller({
 		url: S3O_PUBLIC_KEY_URL,
@@ -22,7 +22,7 @@ const poller = (debug) => {
 		refreshInterval: 1000 * 60 * 5,
 		parseData: function (data) {
 			debug('event=S3O_PUBLIC_KEY_LOADED source=' + S3O_PUBLIC_KEY_URL);
-			publicKey = data;
+			publickey = data;
 		}
 	});
 
@@ -33,9 +33,9 @@ const poller = (debug) => {
 
 	return function (opts) {
 		if (opts && opts.promise) {
-			return promise.then(function () { return publicKey; });
+			return promise.then(function () { return publickey; });
 		}
-		return publicKey;
+		return publickey;
 	};
 };
 

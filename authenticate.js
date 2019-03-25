@@ -13,7 +13,7 @@ const validateFactory = require('./validate');
  *
  * @returns {function(string, string, string): boolean} A token authenticator
  */
-const authenticateToken = (getPublicKey, validate) =>
+const getTokenAuthenticator = (getPublicKey, validate) =>
 /**
  * Authenticate token and save/delete cookies as appropriate.
  *
@@ -44,7 +44,7 @@ function (username, hostname, token) {
 module.exports = (getPublicKey) => {
 	const validate = validateFactory(getPublicKey);
 	return {
-		authenticateToken: authenticateToken(getPublicKey, validate),
+		authenticateToken: getTokenAuthenticator(getPublicKey, validate),
 		validate,
 	};
 }
