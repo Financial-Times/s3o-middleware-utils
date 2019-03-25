@@ -68,7 +68,7 @@ jobs:
       - run:
           name: Publish npm package
           command: |
-            npm-prepublish --verbose
+           ./node_modules/.bin/npm-prepublish --verbose
             npm publish --access public
 
 workflows:
