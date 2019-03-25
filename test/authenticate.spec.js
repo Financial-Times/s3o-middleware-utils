@@ -11,46 +11,50 @@ chai.should();
 chai.use(sinonChai);
 
 describe('authenticateToken', () => {
-	const publickeyStub = sinon.stub();
+	const publickeyPollerStub = sinon.stub();
 	const validateStub = sinon.stub();
-	const authenticate = proxyquire('../authenticate', {
-		'./publickey': () => publickeyStub,
+	const authenticateFactory = proxyquire('../authenticate', {
 		'./validate': () => validateStub,
-	}).authenticateToken;
+	});
+	const getAuthenticateToken = () => authenticateFactory(publickeyPollerStub).authenticateToken;
 
 	beforeEach(() => {
-		publickeyStub.reset()
-		publickeyStub.returns(() => true);
+		publickeyPollerStub.reset();
+		publickeyPollerStub.returns(() => true)
 		validateStub.reset();
 	});
 
 	it('should throw an error if public key unavailable', () => {
+		let authenticateToken;
 		try {
-			publickeyStub.returns(undefined);
-			authenticate('test', 'localhost', 'test-123');
+			publickeyPollerStub.returns(undefined);
+			authenticateToken = getAuthenticateToken();
+			authenticateToken('test', 'localhost', 'test-123');
 		} catch(e) {
-			authenticate.should.throw('Has not yet downloaded public key from S3O');
+			authenticateToken.should.throw('Has not yet downloaded public key from S3O');
 		}
 
-		publickeyStub.should.have.been.calledTwice;
+		publickeyPollerStub.should.have.been.calledTwice;
 	});
 
-	describe('normal execuation', () => {
+	describe('normal execution', () => {
 		it('should return false on validator failure', () => {
 			validateStub.returns(false);
+			const authenticateToken = getAuthenticateToken();
 
-			const result = authenticate('test', 'localhost', 'test-123');
+			const result = authenticateToken('test', 'localhost', 'test-123');
 
-			publickeyStub.should.have.been.calledOnce;
+			publickeyPollerStub.should.have.been.calledOnce;
 			result.should.equal(false);
 		});
 
 		it('should return true on validator success', () => {
 			validateStub.returns(true);
+			const authenticateToken = getAuthenticateToken();
 
-			const result = authenticate('test', 'localhost', 'test-123');
+			const result = authenticateToken('test', 'localhost', 'test-123');
 
-			publickeyStub.should.have.been.calledOnce;
+			publickeyPollerStub.should.have.been.calledOnce;
 			result.should.equal(true);
 		});
 	});
