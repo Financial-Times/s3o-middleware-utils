@@ -15,7 +15,7 @@ const validateFactory = require('./validate');
  */
 const getTokenAuthenticator = (getPublicKey, validate) =>
 /**
- * Authenticate token and save/delete cookies as appropriate.
+ * Authenticate token and return a boolean based on result
  *
  * @param  {string} username Google username
  * @param  {string} hostname Originating hostname of request
